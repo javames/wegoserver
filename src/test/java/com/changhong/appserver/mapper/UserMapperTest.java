@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.changhong.appserver.entity.UserEntity;
-import com.changhong.appserver.mapper.usermap.UserMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
