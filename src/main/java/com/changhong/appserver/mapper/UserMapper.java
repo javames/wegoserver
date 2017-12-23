@@ -1,11 +1,27 @@
 package com.changhong.appserver.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.changhong.appserver.entity.UserEntity;
 
 public interface UserMapper {
-
-//	@Insert("INSERT INTO user_info(name,headImage,authenticated,usertoken,password) VALUES(#{name}, #{headImage}, #{authenticated},#{usertoken},#{password})")
-	void insertUser(UserEntity user);
+	
+	//插入一个用户
+	Integer insertUser(UserEntity user);
+	
+	//查找根据uid查找用户
+	UserEntity selectByUid(Integer id);
+	
+	//根据用户名和密码查找用户
+	UserEntity selectByNameAndPwd(@Param("name") String name,@Param("password")String password);
+	
+	//修改用户的信息
+	void updateUserEntityByUid(Integer uId);
+	
+	//删除用户
+	void deleteUserByUid(Integer uId);
 	
 }
   

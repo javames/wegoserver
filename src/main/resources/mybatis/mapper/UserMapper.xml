@@ -26,12 +26,20 @@
 	   FROM users
 	   WHERE id = #{id}
     </select>
+    
+     <select id="selectByNameAndPwd" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT *
+	   FROM user_info
+	   WHERE 1=1
+	   and name = #{name}
+	   and password = #{password}
+    </select>
 
-    <insert id="insertUser" parameterType="com.changhong.appserver.entity.UserEntity" >
+    <insert id="insertUser" parameterType="com.changhong.appserver.entity.UserEntity" keyProperty="id" useGeneratedKeys="true" >
        INSERT INTO 
-       		user_info(name,headImage,authenticated,usertoken,password)
+       		user_info(name,usertoken,password)
        	VALUES
-       		(#{name}, #{headImage}, #{authenticated},#{usertoken},#{password})
+       		(#{name},#{usertoken},#{password})
     </insert>
     
     <update id="update" parameterType="com.changhong.appserver.entity.UserEntity" >
@@ -52,4 +60,8 @@
        		 id =#{id}
     </delete>
 
+<!-- 	<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" > -->
+<!--         select from_unixtime(time/1000, '%Y-%m-%d %H:%i:%s') as last_login_time from  -->
+<!--     </select> -->
+    
 </mapper>
