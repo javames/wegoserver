@@ -60,11 +60,13 @@ public class TokenUtil {
 //		Long time=new Long(Long.parseLong(current));
 		
 		
-		logger.debug(System.currentTimeMillis()+"");
+//		logger.debug(System.currentTimeMillis()+"");
 		SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");  
 		Long time=new Long(1514007309652L);
 		String d = format.format(time);  
-		logger.debug(d);
+//		logger.debug(d);
+		
+		
 //	    System.out.println("Format To String(Date):"+d);  
 	}
 

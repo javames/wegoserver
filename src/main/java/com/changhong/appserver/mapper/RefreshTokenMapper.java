@@ -15,7 +15,7 @@ public interface RefreshTokenMapper {
 	 RefreshTokenEntity selectByUid(Integer uId);
 	 
 	 /**
-	  * 修改
+	  * 重置有效时间
 	  */
 	 void updataRefreshToken(RefreshTokenEntity rTokenEntity);
 	 

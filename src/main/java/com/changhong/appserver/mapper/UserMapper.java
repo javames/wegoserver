@@ -1,7 +1,5 @@
 package com.changhong.appserver.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.changhong.appserver.entity.UserEntity;
@@ -13,6 +11,9 @@ public interface UserMapper {
 	
 	//查找根据uid查找用户
 	UserEntity selectByUid(Integer id);
+	
+	//根据usertoken查找用户
+	UserEntity selectByUtoken(String userToken);
 	
 	//根据用户名和密码查找用户
 	UserEntity selectByNameAndPwd(@Param("name") String name,@Param("password")String password);

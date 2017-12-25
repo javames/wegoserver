@@ -6,27 +6,34 @@
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="access_token" property="access_token" jdbcType="VARCHAR" />
 		<result column="expires_in" property="expires_in" jdbcType="VARCHAR" />
-		<result column="refresh_token" property="refresh_token"
-			jdbcType="VARCHAR" />
+		<result column="refresh_token" property="refresh_token"	jdbcType="VARCHAR" />
 		<result column="uid" property="uid" jdbcType="VARCHAR" />
 		<result column="current_time" property="current_time" jdbcType="VARCHAR" />
+		<result column="refresh_expires" property="refresh_expires" jdbcType="VARCHAR" />
 	</resultMap>
 
-
-	<select id="selectByUid" parameterType="java.lang.Integer"
+    <select id="selectByUid" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
 		SELECT *
 		FROM login_authorize
 		WHERE 1=1
 		and uid = #{uid}
 	</select>
+	
+	<select id="selectByUtoken" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT *
+		FROM user_info
+		WHERE 1=1
+		and usertoken = #{userToken}
+	</select>
 
 	<insert id="saveTokens" parameterType="com.changhong.appserver.entity.RefreshTokenEntity"
 		keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO
-		login_authorize(access_token,expires_in,refresh_token,uid,current_time)
+		login_authorize(access_token,expires_in,refresh_token,uid,current_time,refresh_expires)
 		VALUES
-		(#{access_token},#{expires_in},#{refresh_token},#{uid},#{current_time})
+		(#{access_token},#{expires_in},#{refresh_token},#{uid},#{current_time},#{refresh_expires})
 	</insert>
 
 	<update id="updataRefreshToken" parameterType="com.changhong.appserver.entity.RefreshTokenEntity">
@@ -34,8 +41,8 @@
 		login_authorize
 		SET
 		<if test="access_token != null">access_token = #{access_token},</if>
-		test="expires_in != null">expires_in = #{expires_in},
-		test="refresh_token != null">refresh_token = #{refresh_token},
+		<if test="expires_in != null">expires_in = #{expires_in},</if>
+		<if test="refresh_token != null">refresh_token = #{refresh_token},</if>
 		test="current_time != null">current_time = #{current_time}
 		WHERE
 		uid = #{uid}

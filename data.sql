@@ -16,6 +16,24 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`wego_data` /*!40100 DEFAULT CHARACTER S
 
 USE `wego_data`;
 
+/*Table structure for table `login_authorize` */
+
+CREATE TABLE `login_authorize` (
+  `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `access_token` varchar(80) DEFAULT NULL COMMENT '请求令牌',
+  `expires_in` varchar(32) DEFAULT NULL COMMENT 'access_token有效时间',
+  `refresh_token` varchar(80) DEFAULT NULL COMMENT '刷新令牌',
+  `uid` int(32) DEFAULT NULL COMMENT '用户id唯一',
+  `current_time` varchar(50) DEFAULT NULL COMMENT '时间戳',
+  `refresh_expires` varchar(50) DEFAULT NULL COMMENT 'refresh_token产生的时间戳',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `login_authorize` */
+
+insert  into `login_authorize`(`id`,`access_token`,`expires_in`,`refresh_token`,`uid`,`current_time`,`refresh_expires`) values 
+(1,'111111','43232432','454564',1,'1514007309652','1514007309652');
+
 /*Table structure for table `payacct` */
 
 CREATE TABLE `payacct` (
@@ -37,13 +55,12 @@ CREATE TABLE `user_info` (
   `usertoken` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`uId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_info` */
 
 insert  into `user_info`(`uId`,`name`,`headImage`,`authenticated`,`usertoken`,`password`) values 
-(1,'Tom','1231231',454545,'456465dd','123456'),
-(2,'Tom','1231231',454545,'456465dd','123456');
+(1,'Tom','1231231',454545,'456465dd','123456');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
