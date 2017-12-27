@@ -15,4 +15,7 @@ public class RefreshTokenEntity {
 	//用户的唯一标识对应于表中的usertoken
 	private String unionid;
 	private String code;
+	
+	private String name;
+	private String headImage;
 }

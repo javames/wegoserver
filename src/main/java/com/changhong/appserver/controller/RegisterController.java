@@ -1,5 +1,6 @@
 package com.changhong.appserver.controller;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,17 +21,23 @@ protected static Logger logger=LoggerFactory.getLogger(HolloWorldController.clas
 	private RegisterService registerService;
 	@RequestMapping("/register")
 	public String register(JSONObject jsonObject) {
-		String userName=jsonObject.getString("userName");
-		String passWord=jsonObject.getString("passWord");
-		String registerMsg = registerService.register(userName, passWord);
 		String respObject=null;
-		if(registerMsg.equals(Constant.register_SUCCESS)) {
-			RespApp respEntity = getSuccessRespEntity("register succed!");
-			respObject = toJSONObject(respEntity);
-		}else {
-			RespApp respEntity = getFailRespEntity(null);
-			respObject = toJSONObject(respEntity);
+		try {
+			String userName = jsonObject.getString("userName");
+			String passWord=jsonObject.getString("passWord");
+			String registerMsg = registerService.register(userName, passWord);
+			if(registerMsg.equals(Constant.succedCode)) {
+				RespApp respEntity = getSuccessRespEntity("register succed!");
+				respObject = toJSONString(respEntity);
+			}else {
+				RespApp respEntity = getFailRespEntity(null);
+				respObject = toJSONString(respEntity);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			logger.debug("注册操作失败！");
 		}
+		
 		return respObject;
 		
 	}

@@ -1,10 +1,16 @@
 package com.changhong.appserver.entity;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class RespApp {
+public class RespApp implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String code;
 	private String msg;
 	private Object data;

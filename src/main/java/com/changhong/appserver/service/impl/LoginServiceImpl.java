@@ -2,6 +2,7 @@ package com.changhong.appserver.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.changhong.appserver.constant.Constant;
 import com.changhong.appserver.entity.RefreshTokenEntity;
@@ -10,7 +11,7 @@ import com.changhong.appserver.mapper.RefreshTokenMapper;
 import com.changhong.appserver.mapper.UserMapper;
 import com.changhong.appserver.service.LoginService;
 import com.changhong.appserver.utils.TokenUtil;
-
+@Component
 public class LoginServiceImpl implements LoginService {
 
 	protected static Logger logger=LoggerFactory.getLogger(LoginServiceImpl.class);
@@ -35,8 +36,12 @@ public class LoginServiceImpl implements LoginService {
 			refreshTokenEntity.setCurrent_time(System.currentTimeMillis()+"");
 			refreshTokenEntity.setRefresh_expires(System.currentTimeMillis()+"");
 			refreshTokenEntity.setUid(userEntity.getId()+"");
-			refreshTokenEntity.setCode(Constant.loginSucced);
+			refreshTokenEntity.setCode(Constant.succedCode);
 			refreshTokenEntity.setUnionid(userEntity.getUsertoken());
+			
+			//跳到个人主页可以快速的显示当前用户的头像和用户名
+			refreshTokenEntity.setName(userEntity.getName());
+			refreshTokenEntity.setHeadImage(userEntity.getHeadImage());
 		}else {
 			refreshTokenEntity.setCode(Constant.userNotExsit);
 		}
@@ -83,7 +88,7 @@ public class LoginServiceImpl implements LoginService {
 				if((parseLong+Constant.refresh_expires_in)>System.currentTimeMillis()) {
 					//refresh_token没有超出有效时间
 					refreshTokenEntity = updateAccessToken(refreshToken);
-					refreshTokenEntity.setCode(Constant.loginSucced);
+					refreshTokenEntity.setCode(Constant.succedCode);
 				}else {
 					//refresh_token超出了有效时间
 					refreshTokenEntity.setCode(Constant.outUsedTime);

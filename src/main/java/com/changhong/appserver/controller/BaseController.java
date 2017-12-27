@@ -21,8 +21,17 @@ public class BaseController {
 		return resp;
 	}
 	
-	protected String toJSONObject(Object obj) {
-		JSONObject jsonObject=new JSONObject();
-		return JSON.toJSONString(jsonObject);
+	protected RespApp getRespEntity(String code,Object obj) {
+		RespApp respApp=new RespApp(code, "返回数据！", obj);
+		return respApp;
+	}
+	
+	protected String toJSONString(Object obj) {
+		return JSON.toJSONString(obj);
+	}
+	
+	protected com.alibaba.fastjson.JSONObject toJSONObject(Object obj) {
+		com.alibaba.fastjson.JSONObject jsonObject=JSON.parseObject(obj.toString());
+		return jsonObject;
 	}
 }

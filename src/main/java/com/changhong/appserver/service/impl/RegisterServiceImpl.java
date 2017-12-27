@@ -1,13 +1,14 @@
 package com.changhong.appserver.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.changhong.appserver.constant.Constant;
 import com.changhong.appserver.entity.UserEntity;
 import com.changhong.appserver.mapper.UserMapper;
 import com.changhong.appserver.service.RegisterService;
 import com.changhong.appserver.utils.TokenUtil;
-
+@Component
 public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
@@ -26,12 +27,13 @@ public class RegisterServiceImpl implements RegisterService {
 			Integer insertUser = userMapper.insertUser(user);
 			if (insertUser > 0) {
 				// 注册成功
-				return Constant.register_SUCCESS;
+				return Constant.succedCode;
 			} else {
-				return Constant.register_FAILURE;
+				//注册失败
+				return Constant.errorCode;
 			}
 		} else {
-			// 不为空
+			// 用户已经存在
 			return Constant.userHasRegister;
 		}
 	}
