@@ -52,6 +52,7 @@ public class IdentityCodeController extends BaseController {
 					RefreshTokenEntity loginEntity = LoginService.login(phone+"sxy", Base64Util.encodeBase64String(phone+"1scf"+code));
 					if(loginEntity.getCode().equals(Constant.succedCode)) {
 						//登录成功,返回token
+						logger.debug("登录成功！");
 						respApp=getSuccessRespEntity(loginEntity);
 					}else {
 						//登录失败
@@ -68,9 +69,11 @@ public class IdentityCodeController extends BaseController {
 				}
 				break;
 			case Constant.identify_code_error:
+				logger.debug("手机验证码错误！");
 				respApp=getRespEntity(Constant.identify_code_error+"","error!");
 				break;
 			case Constant.identify_code_unused:
+				logger.debug("手机验证码无效！");
 				respApp=getRespEntity(Constant.identify_code_unused+"","unused!");
 				break;
 			}

@@ -18,6 +18,9 @@ public interface UserMapper {
 	//根据用户名和密码查找用户
 	UserEntity selectByNameAndPwd(@Param("name") String name,@Param("password")String password);
 	
+	//根据用户名查找用户
+	UserEntity selectByName(@Param("name")String name);
+	
 	//修改用户的信息
 	void updateUserEntityByUid(Integer uId);
 	

@@ -25,6 +25,7 @@ protected static Logger logger=LoggerFactory.getLogger(HolloWorldController.clas
 		try {
 			String userName = jsonObject.getString("userName");
 			String passWord=jsonObject.getString("passWord");
+			
 			String registerMsg = registerService.register(userName, passWord);
 			if(registerMsg.equals(Constant.succedCode)) {
 				RespApp respEntity = getSuccessRespEntity("register succed!");

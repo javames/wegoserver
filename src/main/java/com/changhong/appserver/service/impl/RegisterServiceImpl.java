@@ -1,14 +1,14 @@
 package com.changhong.appserver.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.changhong.appserver.constant.Constant;
 import com.changhong.appserver.entity.UserEntity;
 import com.changhong.appserver.mapper.UserMapper;
 import com.changhong.appserver.service.RegisterService;
 import com.changhong.appserver.utils.TokenUtil;
-@Component
+@Service
 public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
@@ -16,7 +16,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Override
 	public String register(String userName, String passWord) {
-		UserEntity user = userMapper.selectByNameAndPwd(userName, passWord);
+		UserEntity user = userMapper.selectByName(userName);
 		if (user == null) {
 			// 为空
 			user = new UserEntity();

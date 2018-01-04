@@ -35,6 +35,13 @@
 	   and password = #{password}
     </select>
 
+     <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap" >
+       SELECT *
+	   FROM user_info
+	   WHERE 1=1
+	   and name = #{name}
+    </select>
+    
     <insert id="insertUser" parameterType="com.changhong.appserver.entity.UserEntity" keyProperty="id" useGeneratedKeys="true" >
        INSERT INTO 
        		user_info(name,usertoken,password)

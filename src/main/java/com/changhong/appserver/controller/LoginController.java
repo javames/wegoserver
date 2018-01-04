@@ -1,7 +1,5 @@
 package com.changhong.appserver.controller;
 
-import javax.validation.constraints.Null;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -43,8 +41,7 @@ public class LoginController extends BaseController{
 	}
 	
 	@RequestMapping("/secondLogin")
-	public String secondLogin(JSONObject jsonObject) {
-		RefreshTokenEntity refreshTokenEntity = JSON.parseObject(jsonObject.toString(), RefreshTokenEntity.class);
+	public String secondLogin(RefreshTokenEntity refreshTokenEntity) {
 		RefreshTokenEntity loginAccess = loginService.loginAccess(refreshTokenEntity);
 		//用户不存在，即登录失败
 		String code=loginAccess.getCode();

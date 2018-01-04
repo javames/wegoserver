@@ -2,7 +2,7 @@ package com.changhong.appserver.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.changhong.appserver.constant.Constant;
 import com.changhong.appserver.entity.RefreshTokenEntity;
@@ -11,7 +11,7 @@ import com.changhong.appserver.mapper.RefreshTokenMapper;
 import com.changhong.appserver.mapper.UserMapper;
 import com.changhong.appserver.service.LoginService;
 import com.changhong.appserver.utils.TokenUtil;
-@Component
+@Service
 public class LoginServiceImpl implements LoginService {
 
 	protected static Logger logger=LoggerFactory.getLogger(LoginServiceImpl.class);
@@ -52,11 +52,14 @@ public class LoginServiceImpl implements LoginService {
 	private RefreshTokenEntity updateAccessToken(RefreshTokenEntity refreshToken) {
 		String current_time = refreshToken.getCurrent_time();
 		String expires_in = refreshToken.getExpires_in();
+		logger.debug("current_time: "+current_time+" expires_in: "+expires_in);
 		if(Long.parseLong(current_time)+Long.parseLong(expires_in)>System.currentTimeMillis()) {
+			logger.debug("在有效期内，可以正常登录，刷新下有效时间");
 			//在有效时间内，可以正常登陆,刷新下有效时间
 			refreshToken.setCurrent_time(System.currentTimeMillis()+"");
 			refreshTokenMapper.updataRefreshToken(refreshToken);
 		}else {
+			logger.debug("在有效期外，重新生成access_token保存数据库里面");
 			//在有效期外
 			refreshToken=new RefreshTokenEntity();
 			refreshToken.setAccess_token(TokenUtil.getAccessToken());
@@ -78,7 +81,7 @@ public class LoginServiceImpl implements LoginService {
 	 */
 	@Override
 	public RefreshTokenEntity loginAccess(RefreshTokenEntity refreshTokenEntity) {
-		//首先检验当前用户是否存在
+		//通过唯一用户token检验当前用户是否存在
 		UserEntity byUtoken = userMapper.selectByUtoken(refreshTokenEntity.getUnionid());
 		if(byUtoken!=null) {//用户存在
 			RefreshTokenEntity refreshToken=refreshTokenMapper.selectByUid(byUtoken.getId());
