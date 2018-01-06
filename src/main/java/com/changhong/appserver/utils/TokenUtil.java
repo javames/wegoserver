@@ -19,7 +19,7 @@ public class TokenUtil {
 	 */
 	public static String getToken(String userName) {
 		String originPwd=UUID.randomUUID().toString().replace("-", "")+"/"+userName;
-		String base64Str = Base64.encodeBase64String(originPwd.getBytes());
+		String base64Str = Base64.encodeBase64String(originPwd.getBytes()).substring(0,20);
 		logger.debug("base64Str: "+base64Str);
 		return base64Str;
 	}
@@ -30,7 +30,7 @@ public class TokenUtil {
 	 */
 	public static String getAccessToken() {
 		String originPwd=UUID.randomUUID().toString().replace("-", "");
-		String base64Str = Base64.encodeBase64String(originPwd.getBytes());
+		String base64Str = Base64.encodeBase64String(originPwd.getBytes()).substring(0,20);
 		logger.debug("base64Str: "+base64Str);
 		return base64Str;
 	}

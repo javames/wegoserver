@@ -25,7 +25,7 @@ public class UserMapperTest {
 //		UserMapper.insertUser(new UserEntity("bb",1, "1231231","454545","456465dd","sssss"));
 //		UserMapper.insertUser(new UserEntity("cc",1, "1231231","454545","456465dd","sssssss"));
 		UserEntity user = new UserEntity();
-		user.setName("Tom");
+		user.setUsername("Tom");
 		user.setPassword("123456");
 		UserEntity userEntitys = userMapper.selectByNameAndPwd("Tom","123456");
 		System.out.println(userEntitys.toString());

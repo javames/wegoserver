@@ -33,14 +33,15 @@ public class LoginServiceImpl implements LoginService {
 			refreshTokenEntity.setAccess_token(TokenUtil.getAccessToken());
 			refreshTokenEntity.setRefresh_token(TokenUtil.getRefreshToken());
 			refreshTokenEntity.setExpires_in(Constant.expires_in);
-			refreshTokenEntity.setCurrent_time(System.currentTimeMillis()+"");
+			refreshTokenEntity.setCurrent_times(System.currentTimeMillis()+"");
 			refreshTokenEntity.setRefresh_expires(System.currentTimeMillis()+"");
 			refreshTokenEntity.setUid(userEntity.getId()+"");
 			refreshTokenEntity.setCode(Constant.succedCode);
 			refreshTokenEntity.setUnionid(userEntity.getUsertoken());
-			
+			refreshTokenMapper.saveTokens(refreshTokenEntity);
+			logger.debug("首次验证码登陆保存token");
 			//跳到个人主页可以快速的显示当前用户的头像和用户名
-			refreshTokenEntity.setName(userEntity.getName());
+			refreshTokenEntity.setName(userEntity.getUsername());
 			refreshTokenEntity.setHeadImage(userEntity.getHeadImage());
 		}else {
 			refreshTokenEntity.setCode(Constant.userNotExsit);
@@ -50,13 +51,13 @@ public class LoginServiceImpl implements LoginService {
 	
 	
 	private RefreshTokenEntity updateAccessToken(RefreshTokenEntity refreshToken) {
-		String current_time = refreshToken.getCurrent_time();
+		String current_time = refreshToken.getCurrent_times();
 		String expires_in = refreshToken.getExpires_in();
 		logger.debug("current_time: "+current_time+" expires_in: "+expires_in);
 		if(Long.parseLong(current_time)+Long.parseLong(expires_in)>System.currentTimeMillis()) {
 			logger.debug("在有效期内，可以正常登录，刷新下有效时间");
 			//在有效时间内，可以正常登陆,刷新下有效时间
-			refreshToken.setCurrent_time(System.currentTimeMillis()+"");
+			refreshToken.setCurrent_times(System.currentTimeMillis()+"");
 			refreshTokenMapper.updataRefreshToken(refreshToken);
 		}else {
 			logger.debug("在有效期外，重新生成access_token保存数据库里面");
@@ -65,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
 			refreshToken.setAccess_token(TokenUtil.getAccessToken());
 			refreshToken.setRefresh_token(TokenUtil.getRefreshToken());
 			refreshToken.setExpires_in(Constant.expires_in);
-			refreshToken.setCurrent_time(System.currentTimeMillis()+"");
+			refreshToken.setCurrent_times(System.currentTimeMillis()+"");
 			Integer id=refreshTokenMapper.saveTokens(refreshToken);
 			if(id<=0) {
 				refreshToken=null;

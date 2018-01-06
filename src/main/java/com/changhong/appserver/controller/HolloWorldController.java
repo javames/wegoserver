@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class HolloWorldController extends BaseController{
 	@Autowired
 	private UserMapper userMapper;
 	@ResponseBody()
-	@RequestMapping("/hello")
+	@RequestMapping(value="/hello",method= {RequestMethod.POST})
     public String index() {
 		System.out.println("hello");
 		logger.debug("访问hello");  

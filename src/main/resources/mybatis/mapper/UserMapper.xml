@@ -1,74 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.changhong.appserver.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="com.changhong.appserver.entity.UserEntity" >
-        <id column="uId" property="id" jdbcType="BIGINT" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="headImage" property="headImage" jdbcType="VARCHAR"/>
-        <result column="authenticated" property="authenticated" jdbcType="VARCHAR" />
-        <result column="usertoken" property="usertoken" jdbcType="VARCHAR" />
-    </resultMap>
-    
-    <sql id="Base_Column_List" >
-        id, userName, passWord, user_sex, nick_name
-    </sql>
+<mapper namespace="com.changhong.appserver.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.changhong.appserver.entity.UserEntity">
+		<id column="uId" property="id" jdbcType="BIGINT" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="headImage" property="headImage" jdbcType="VARCHAR" />
+		<result column="authenticated" property="authenticated"
+			jdbcType="VARCHAR" />
+		<result column="usertoken" property="usertoken" jdbcType="VARCHAR" />
+	</resultMap>
 
-    <select id="getAll" resultMap="BaseResultMap"  >
-       SELECT 
-       <include refid="Base_Column_List" />
-	   FROM users
-    </select>
+	<sql id="Base_Column_List">
+		id, userName, passWord, user_sex, nick_name
+	</sql>
 
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
-        SELECT 
-       <include refid="Base_Column_List" />
-	   FROM users
-	   WHERE id = #{id}
-    </select>
-    
-     <select id="selectByNameAndPwd" parameterType="java.lang.String" resultMap="BaseResultMap" >
-       SELECT *
-	   FROM user_info
-	   WHERE 1=1
-	   and name = #{name}
-	   and password = #{password}
-    </select>
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM users
+	</select>
 
-     <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap" >
-       SELECT *
-	   FROM user_info
-	   WHERE 1=1
-	   and name = #{name}
-    </select>
-    
-    <insert id="insertUser" parameterType="com.changhong.appserver.entity.UserEntity" keyProperty="id" useGeneratedKeys="true" >
-       INSERT INTO 
-       		user_info(name,usertoken,password)
-       	VALUES
-       		(#{name},#{usertoken},#{password})
-    </insert>
-    
-    <update id="update" parameterType="com.changhong.appserver.entity.UserEntity" >
-       UPDATE 
-       		users 
-       SET 
-       	<if test="userName != null">userName = #{userName},</if>
-       	<if test="passWord != null">passWord = #{passWord},</if>
-       	nick_name = #{nickName}
-       WHERE 
-       		id = #{id}
-    </update>
-    
-    <delete id="delete" parameterType="java.lang.Long" >
-       DELETE FROM
-       		 users 
-       WHERE 
-       		 id =#{id}
-    </delete>
+	<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM users
+		WHERE id = #{id}
+	</select>
 
-<!-- 	<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" > -->
-<!--         select from_unixtime(time/1000, '%Y-%m-%d %H:%i:%s') as last_login_time from  -->
-<!--     </select> -->
-    
+	<select id="selectByNameAndPwd" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT *
+		FROM user_info
+		WHERE 1=1
+		and username = #{username}
+		and
+		password = #{password}
+	</select>
+
+	<select id="selectByName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT *
+		FROM user_info
+		WHERE 1=1
+		and username = #{username}
+	</select>
+
+	<insert id="insertUser" parameterType="com.changhong.appserver.entity.UserEntity"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		user_info(username,usertoken,password)
+		VALUES
+		(#{username},#{usertoken},#{password})
+	</insert>
+
+	<update id="update" parameterType="com.changhong.appserver.entity.UserEntity">
+		UPDATE
+		users
+		SET
+		<if test="userName != null">userName = #{userName},</if>
+		<if test="passWord != null">passWord = #{passWord},</if>
+		nick_name = #{nickName}
+		WHERE
+		id = #{id}
+	</update>
+
+	<update id="updataUserEntityByToken" parameterType="com.changhong.appserver.entity.UserEntity">
+		UPDATE
+		user_info
+		SET
+		<if test="name != null">username = #{username},</if>
+		<if test="id != null">id = #{id},</if>
+		<if test="password != null">password = #{password},</if>
+		<if test="authenticated != null">authenticated = #{authenticated},</if>
+		headImage = #{headImage}
+		WHERE
+		usertoken = #{usertoken}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		DELETE FROM
+		users
+		WHERE
+		id =#{id}
+	</delete>
+
+	<!-- <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" 
+		> -->
+	<!-- select from_unixtime(time/1000, '%Y-%m-%d %H:%i:%s') as last_login_time 
+		from -->
+	<!-- </select> -->
+
 </mapper>

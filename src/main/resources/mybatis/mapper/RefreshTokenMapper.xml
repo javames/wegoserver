@@ -8,7 +8,7 @@
 		<result column="expires_in" property="expires_in" jdbcType="VARCHAR" />
 		<result column="refresh_token" property="refresh_token"	jdbcType="VARCHAR" />
 		<result column="uid" property="uid" jdbcType="VARCHAR" />
-		<result column="current_time" property="current_time" jdbcType="VARCHAR" />
+		<result column="current_times" property="current_times" jdbcType="VARCHAR" />
 		<result column="refresh_expires" property="refresh_expires" jdbcType="VARCHAR" />
 	</resultMap>
 
@@ -31,9 +31,9 @@
 	<insert id="saveTokens" parameterType="com.changhong.appserver.entity.RefreshTokenEntity"
 		keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO
-		login_authorize(access_token,expires_in,refresh_token,uid,current_time,refresh_expires)
+		login_authorize(access_token,expires_in,refresh_token,uid,current_times,refresh_expires,unionid)
 		VALUES
-		(#{access_token},#{expires_in},#{refresh_token},#{uid},#{current_time},#{refresh_expires})
+		(#{access_token},#{expires_in},#{refresh_token},#{uid},#{current_times},#{refresh_expires},#{unionid})
 	</insert>
 
 	<update id="updataRefreshToken" parameterType="com.changhong.appserver.entity.RefreshTokenEntity">
@@ -43,7 +43,7 @@
 		<if test="access_token != null">access_token = #{access_token},</if>
 		<if test="expires_in != null">expires_in = #{expires_in},</if>
 		<if test="refresh_token != null">refresh_token = #{refresh_token},</if>
-		test="current_time != null">current_time = #{current_time}
+		<if test="current_time != null">current_time = #{current_time}</if>
 		WHERE
 		uid = #{uid}
 	</update>

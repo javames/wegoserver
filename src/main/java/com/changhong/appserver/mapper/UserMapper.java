@@ -27,5 +27,7 @@ public interface UserMapper {
 	//删除用户
 	void deleteUserByUid(Integer uId);
 	
+	//修改用户头像
+	void updataUserEntityByToken(@Param("usertoken")String usertoken,@Param("headImage")String headImage);
 }
   

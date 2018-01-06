@@ -1,6 +1,7 @@
 package com.changhong.appserver.controller;
 
-import org.json.JSONObject;
+import javax.validation.constraints.Null;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +71,11 @@ public class IdentityCodeController extends BaseController {
 				break;
 			case Constant.identify_code_error:
 				logger.debug("手机验证码错误！");
-				respApp=getRespEntity(Constant.identify_code_error+"","error!");
+				respApp=getRespEntity(Constant.identify_code_error+"",null);
 				break;
 			case Constant.identify_code_unused:
 				logger.debug("手机验证码无效！");
-				respApp=getRespEntity(Constant.identify_code_unused+"","unused!");
+				respApp=getRespEntity(Constant.identify_code_unused+"",null);
 				break;
 			}
 		} catch (Exception e) {

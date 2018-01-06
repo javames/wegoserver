@@ -20,7 +20,7 @@ public class RegisterServiceImpl implements RegisterService {
 		if (user == null) {
 			// 为空
 			user = new UserEntity();
-			user.setName(userName);
+			user.setUsername(userName);
 			user.setPassword(passWord);
 			String userToken = TokenUtil.getToken(userName);
 			user.setUsertoken(userToken);

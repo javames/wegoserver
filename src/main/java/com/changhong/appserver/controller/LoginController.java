@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.changhong.appserver.constant.Constant;
 import com.changhong.appserver.entity.RefreshTokenEntity;
 import com.changhong.appserver.entity.RespApp;
 import com.changhong.appserver.service.LoginService;
-
+@RestController
 public class LoginController extends BaseController{
 
 	protected static Logger logger=LoggerFactory.getLogger(LoginController.class);
@@ -39,6 +40,7 @@ public class LoginController extends BaseController{
 		}
 		return JSON.toJSONString(respApp);
 	}
+	
 	
 	@RequestMapping("/secondLogin")
 	public String secondLogin(RefreshTokenEntity refreshTokenEntity) {

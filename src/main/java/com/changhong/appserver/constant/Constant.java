@@ -43,6 +43,9 @@ public class Constant {
 	
 	
 	
+	public static final String accessKey = "Wewp7F6l8YI3obuphZPd_dHb-r3DrVe1D61uIVC5";
+	public static final String secretKey = "sGhX5NVtsgbP9_j5RRhEgPmxp_iMcWCI5y9oP5q2";
+	public static final String bucket = "wego-pic";
 	
 	
 }
